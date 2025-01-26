@@ -1,0 +1,5 @@
+# Directorio con datos de entrada.
+data/
+
+# Ambiente virtual de python
+.venv/

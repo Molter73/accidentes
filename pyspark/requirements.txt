@@ -1,0 +1,7 @@
+pyspark==3.5.4
+pandas==2.2.3
+pyarrow==19.0.0
+grpcio==1.70.0
+grpcio-status==1.70.0
+google==3.0.0
+google-api-python-client==2.159.0
