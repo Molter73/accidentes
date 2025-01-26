@@ -57,5 +57,15 @@ services:
       SPARK_SSL_ENABLED: no
       SPARK_USER: spark
 
+  dashboard:
+    build: ./dashboard
+    environment:
+      MONGO_USER: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_PASS: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_SERVICE: mongo-db:27017
+    ports:
+      - 8050:8050
+    restart: always
+
 volumes:
   mongo-db-data:

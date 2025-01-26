@@ -1,0 +1,15 @@
+FROM python:3.13-slim
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt && \
+    rm -f requirements.txt
+
+COPY app.py .
+
+EXPOSE 8050
+
+ENTRYPOINT ["./app.py"]
