@@ -4,6 +4,7 @@ import os
 
 from dash import Dash, dcc, html
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 from pymongo import MongoClient
@@ -15,7 +16,7 @@ MONGO_URI = f'mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_SERVICE}/admin'
 
 EXCLUDE_2023 = {'year': {'$not': {'$in': [2023], }, }, }
 
-app = Dash()
+app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 
 class Collection:
@@ -90,22 +91,26 @@ states = load_states()
 years = states['year'].unique()
 years.sort()
 
-app.layout = [
+app.layout = dbc.Container([
     html.Div(children='Accidentes en EE.UU'),
+    dcc.Graph(id='heatmap'),
     dcc.Dropdown(id='dropdown', options=years.tolist(),
                  value=2023),
-    dcc.Graph(id='heatmap'),
     dcc.Graph(figure=px.line(totals, x='year', y='count', markers=True)),
-    dcc.Graph(figure=px.line(weather, x='year', y='count',
-                             color='condition', markers=True)),
-    dcc.Graph(figure=px.line(weather, x='year', y='perc',
-                             color='condition', markers=True)),
-    dcc.Graph(figure=px.line(locations, x='year', y='count',
-                             color='location', markers=True)),
-    dcc.Graph(figure=px.line(locations, x='year', y='perc',
-                             color='location', markers=True)),
-]
+    dbc.Row([
+        dbc.Col(dcc.Graph(figure=px.line(weather, x='year', y='count',
+                                         color='condition', markers=True))),
+        dbc.Col(dcc.Graph(figure=px.line(weather, x='year', y='perc',
+                                         color='condition', markers=True))),
+    ]),
+    dbc.Row([
+        dbc.Col(dcc.Graph(figure=px.line(locations, x='year', y='count',
+                                         color='location', markers=True))),
+        dbc.Col(dcc.Graph(figure=px.line(locations, x='year', y='perc',
+                                         color='location', markers=True))),
+    ]),
+])
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
