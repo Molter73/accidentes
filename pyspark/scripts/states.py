@@ -109,7 +109,7 @@ states_df = df.rdd \
 # Volcamos los resultados a mongo.
 states_df.write \
     .format('mongodb') \
-    .mode('overwrite') \
+    .mode('append') \
     .option('database', 'DMV') \
     .option('collection', 'states') \
     .save()

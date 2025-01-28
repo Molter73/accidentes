@@ -5,7 +5,7 @@ set -euo pipefail
 tail -n +2 /tmp/data/US_Accidents_March23.csv |
     mongoimport \
         --type=csv \
-        --fieldFile=/init-scripts/mongo/field_file.txt \
+        --fieldFile=/docker-entrypoint-initdb.d/field_file.txt \
         --columnsHaveTypes \
         --ignoreBlanks \
         --drop \

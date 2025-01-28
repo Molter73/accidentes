@@ -89,7 +89,7 @@ weather_df = weather_df.withColumn(
 # Volcamos los resultados a mongo.
 weather_df.write \
     .format('mongodb') \
-    .mode('overwrite') \
+    .mode('append') \
     .option('database', 'DMV') \
     .option('collection', 'weather') \
     .save()

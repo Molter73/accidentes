@@ -81,7 +81,7 @@ location_df = location_df.withColumn(
 # Volcamos los resultados a mongo.
 location_df.write \
     .format('mongodb') \
-    .mode('overwrite') \
+    .mode('append') \
     .option('database', 'DMV') \
     .option('collection', 'location') \
     .save()

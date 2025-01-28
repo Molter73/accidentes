@@ -9,8 +9,7 @@ services:
     volumes:
       - mongo-db-data:/data/db
       - ./data:/tmp/data:ro
-      - ./init-scripts:/init-scripts:ro
-      - ./init-scripts/mongo:/docker-entrypoint-initdb.d:ro
+      - ./mongodb/init-scripts:/docker-entrypoint-initdb.d:ro
     restart: always
 
   mongo-express:

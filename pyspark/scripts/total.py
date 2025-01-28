@@ -37,7 +37,7 @@ location_df = df.rdd \
 # Volcamos los resultados a mongo.
 location_df.write \
     .format('mongodb') \
-    .mode('overwrite') \
+    .mode('append') \
     .option('database', 'DMV') \
     .option('collection', 'totals') \
     .save()
